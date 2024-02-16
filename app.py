@@ -7,6 +7,9 @@ import cv2 as cv
 import numpy as np
 from utils import pyramid_blending,webp_to_np
 # Function to resize the image to allowed dimensions
+import os
+api_key = os.getenv("SD_KEY")
+
 def resize_image(image, allowed_dimensions):
     # Find the closest allowed dimensions
     closest_dim = min(allowed_dimensions, key=lambda x: abs(x[0] - image.width) + abs(x[1] - image.height))
@@ -18,7 +21,7 @@ def generate_image(init_image, text_prompt):
         "https://api.stability.ai/v1/generation/stable-diffusion-xl-1024-v1-0/image-to-image",
         headers={
             "Accept": "application/json",
-            "Authorization": f"Bearer sk-vx9ZiBMTTcwWR85CI9W46OXTVeCXLG7zO63gsdkNR24BxJy3"
+            "Authorization": f"Bearer {api_key}"
         },
         files={
             "init_image": init_image
